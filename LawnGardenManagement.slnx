@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LawnGardenManagement.Api/LawnGardenManagement.Api.csproj" />
+    <Project Path="src/LawnGardenManagement.Application/LawnGardenManagement.Application.csproj" />
+    <Project Path="src/LawnGardenManagement.Domain/LawnGardenManagement.Domain.csproj" />
+    <Project Path="src/LawnGardenManagement.Infrastructure/LawnGardenManagement.Infrastructure.csproj" />
+  </Folder>
+</Solution>

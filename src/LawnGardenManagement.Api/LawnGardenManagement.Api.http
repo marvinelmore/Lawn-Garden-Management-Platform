@@ -1,0 +1,6 @@
+@LawnGardenManagement.Api_HostAddress = http://localhost:5223
+
+GET {{LawnGardenManagement.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
