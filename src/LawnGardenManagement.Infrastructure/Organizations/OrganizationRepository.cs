@@ -50,4 +50,20 @@ public sealed class OrganizationRepository(
             .OrderBy(organization => organization.Name)
             .ToListAsync(cancellationToken);
     }
+    
+    public async Task<Organization?> GetTrackedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Organizations
+            .SingleOrDefaultAsync(
+                organization => organization.Id == id,
+                cancellationToken);
+    }
+
+    public async Task SaveChangesAsync(
+        CancellationToken cancellationToken = default)
+    {
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

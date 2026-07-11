@@ -2,6 +2,7 @@ using LawnGardenManagement.Application.Organizations.Common;
 using LawnGardenManagement.Application.Organizations.CreateOrganization;
 using LawnGardenManagement.Application.Organizations.GetOrganizationById;
 using LawnGardenManagement.Application.Organizations.GetAllOrganizations;
+using LawnGardenManagement.Application.Organizations.UpdateOrganization;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,8 @@ namespace LawnGardenManagement.Api.Controllers;
 public sealed class OrganizationsController(
     ICreateOrganizationService createOrganizationService,
     IGetOrganizationByIdService getOrganizationByIdService,
-    IGetAllOrganizationsService getAllOrganizationsService)
+    IGetAllOrganizationsService getAllOrganizationsService,
+    IUpdateOrganizationService updateOrganizationService)
     : ControllerBase
 {
     [HttpPost]
@@ -65,4 +67,30 @@ public sealed class OrganizationsController(
 
         return Ok(response);
     }
+    
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(
+        typeof(OrganizationResponse),
+        StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<OrganizationResponse>> UpdateAsync(
+        Guid id,
+        [FromBody] UpdateOrganizationRequest request,
+        CancellationToken cancellationToken)
+    {
+        OrganizationResponse? response =
+            await updateOrganizationService.ExecuteAsync(
+                id,
+                request,
+                cancellationToken);
+
+        if (response is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(response);
+    }
+    
 }

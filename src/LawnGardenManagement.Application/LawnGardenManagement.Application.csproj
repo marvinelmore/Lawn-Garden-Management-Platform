@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Organizations\DeactivateOrganization\" />
-    <Folder Include="Organizations\UpdateOrganization\" />
   </ItemGroup>
 
   <PropertyGroup>

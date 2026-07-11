@@ -1,6 +1,8 @@
 using LawnGardenManagement.Application.Organizations.CreateOrganization;
 using LawnGardenManagement.Application.Organizations.GetOrganizationById;
 using LawnGardenManagement.Application.Organizations.GetAllOrganizations;
+using LawnGardenManagement.Application.Organizations.UpdateOrganization;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LawnGardenManagement.Application;
@@ -21,6 +23,10 @@ public static class DependencyInjection
         services.AddScoped<
             IGetAllOrganizationsService,
             GetAllOrganizationsService>();
+        
+        services.AddScoped<
+            IUpdateOrganizationService,
+            UpdateOrganizationService>();
 
         return services;
     }

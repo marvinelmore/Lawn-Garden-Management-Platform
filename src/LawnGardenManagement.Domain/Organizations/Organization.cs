@@ -31,6 +31,21 @@ public sealed class Organization : AuditableEntity
     public string? PhoneNumber { get; private set; }
 
     public bool IsActive { get; private set; }
+    
+    public void UpdateDetails(
+        string name,
+        OrganizationType organizationType,
+        string? email,
+        string? phoneNumber)
+    {
+        SetName(name);
+
+        OrganizationType = organizationType;
+        Email = NormalizeOptionalValue(email);
+        PhoneNumber = NormalizeOptionalValue(phoneNumber);
+
+        MarkAsUpdated();
+    }
 
     public void UpdateContactInformation(string? email, string? phoneNumber)
     {
@@ -45,6 +60,7 @@ public sealed class Organization : AuditableEntity
         SetName(name);
         MarkAsUpdated();
     }
+    
 
     public void Activate()
     {
@@ -86,4 +102,5 @@ public sealed class Organization : AuditableEntity
             ? null
             : value.Trim();
     }
+    
 }

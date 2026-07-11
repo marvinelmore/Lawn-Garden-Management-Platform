@@ -18,6 +18,13 @@ public interface IOrganizationRepository
     
     Task<IReadOnlyList<Organization>> GetAllAsync(
         CancellationToken cancellationToken = default);
+    
+    Task<Organization?> GetTrackedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default);
+
+    Task SaveChangesAsync(
+        CancellationToken cancellationToken = default);
 }
 
 
