@@ -11,4 +11,8 @@ public interface IOrganizationRepository
     Task<bool> NameExistsAsync(
         string name,
         CancellationToken cancellationToken = default);
+    
+    Task<Organization?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default);
 }

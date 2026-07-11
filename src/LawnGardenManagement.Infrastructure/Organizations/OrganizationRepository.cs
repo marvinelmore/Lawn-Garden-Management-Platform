@@ -30,4 +30,15 @@ public sealed class OrganizationRepository(
             organization => organization.Name == normalizedName,
             cancellationToken);
     }
+    
+    public async Task<Organization?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Organizations
+            .AsNoTracking()
+            .SingleOrDefaultAsync(
+                organization => organization.Id == id,
+                cancellationToken);
+    }
 }

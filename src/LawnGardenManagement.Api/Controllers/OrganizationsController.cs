@@ -1,5 +1,6 @@
 using LawnGardenManagement.Application.Organizations.Common;
 using LawnGardenManagement.Application.Organizations.CreateOrganization;
+using LawnGardenManagement.Application.Organizations.GetOrganization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawnGardenManagement.Api.Controllers;
@@ -7,7 +8,8 @@ namespace LawnGardenManagement.Api.Controllers;
 [ApiController]
 [Route("api/organizations")]
 public sealed class OrganizationsController(
-    ICreateOrganizationService createOrganizationService)
+    ICreateOrganizationService createOrganizationService,
+    IGetOrganizationService getOrganizationService)
     : ControllerBase
 {
     [HttpPost]
@@ -22,8 +24,29 @@ public sealed class OrganizationsController(
                 request,
                 cancellationToken);
 
-        return Created(
-            $"/api/organizations/{response.Id}",
+        return CreatedAtAction(
+            nameof(GetByIdAsync),
+            new { id = response.Id },
             response);
+    }
+
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(OrganizationResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<OrganizationResponse>> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        OrganizationResponse? response =
+            await getOrganizationService.ExecuteAsync(
+                id,
+                cancellationToken);
+
+        if (response is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(response);
     }
 }
