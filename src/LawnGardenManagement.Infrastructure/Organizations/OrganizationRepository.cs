@@ -41,4 +41,13 @@ public sealed class OrganizationRepository(
                 organization => organization.Id == id,
                 cancellationToken);
     }
+    
+    public async Task<IReadOnlyList<Organization>> GetAllAsync(
+        CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Organizations
+            .AsNoTracking()
+            .OrderBy(organization => organization.Name)
+            .ToListAsync(cancellationToken);
+    }
 }

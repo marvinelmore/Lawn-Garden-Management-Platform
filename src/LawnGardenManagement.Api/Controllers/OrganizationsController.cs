@@ -1,6 +1,8 @@
 using LawnGardenManagement.Application.Organizations.Common;
 using LawnGardenManagement.Application.Organizations.CreateOrganization;
-using LawnGardenManagement.Application.Organizations.GetOrganization;
+using LawnGardenManagement.Application.Organizations.GetOrganizationById;
+using LawnGardenManagement.Application.Organizations.GetAllOrganizations;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawnGardenManagement.Api.Controllers;
@@ -9,7 +11,8 @@ namespace LawnGardenManagement.Api.Controllers;
 [Route("api/organizations")]
 public sealed class OrganizationsController(
     ICreateOrganizationService createOrganizationService,
-    IGetOrganizationService getOrganizationService)
+    IGetOrganizationService getOrganizationService,
+    IGetAllOrganizationsService getAllOrganizationsService)
     : ControllerBase
 {
     [HttpPost]
@@ -28,6 +31,19 @@ public sealed class OrganizationsController(
             nameof(GetByIdAsync),
             new { id = response.Id },
             response);
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(
+        typeof(IReadOnlyList<OrganizationResponse>),
+        StatusCodes.Status200OK)]
+    public async Task<ActionResult<IReadOnlyList<OrganizationResponse>>> GetAllAsync(
+        CancellationToken cancellationToken)
+    {
+        IReadOnlyList<OrganizationResponse> response =
+            await getAllOrganizationsService.ExecuteAsync(cancellationToken);
+
+        return Ok(response);
     }
 
     [HttpGet("{id:guid}")]

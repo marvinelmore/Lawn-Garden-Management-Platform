@@ -1,6 +1,6 @@
 using LawnGardenManagement.Application.Organizations.Common;
 
-namespace LawnGardenManagement.Application.Organizations.GetOrganization;
+namespace LawnGardenManagement.Application.Organizations.GetOrganizationById;
 
 public interface IGetOrganizationService
 {
