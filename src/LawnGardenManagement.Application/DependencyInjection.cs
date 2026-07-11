@@ -15,8 +15,8 @@ public static class DependencyInjection
             CreateOrganizationService>();
         
         services.AddScoped<
-            IGetOrganizationService,
-            GetOrganizationService>();
+            IGetOrganizationByIdService,
+            GetOrganizationByIdService>();
         
         services.AddScoped<
             IGetAllOrganizationsService,

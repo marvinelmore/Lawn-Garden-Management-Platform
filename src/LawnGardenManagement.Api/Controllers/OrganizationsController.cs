@@ -11,7 +11,7 @@ namespace LawnGardenManagement.Api.Controllers;
 [Route("api/organizations")]
 public sealed class OrganizationsController(
     ICreateOrganizationService createOrganizationService,
-    IGetOrganizationService getOrganizationService,
+    IGetOrganizationByIdService getOrganizationByIdService,
     IGetAllOrganizationsService getAllOrganizationsService)
     : ControllerBase
 {
@@ -54,7 +54,7 @@ public sealed class OrganizationsController(
         CancellationToken cancellationToken)
     {
         OrganizationResponse? response =
-            await getOrganizationService.ExecuteAsync(
+            await getOrganizationByIdService.ExecuteAsync(
                 id,
                 cancellationToken);
 

@@ -2,7 +2,7 @@ using LawnGardenManagement.Application.Organizations.Common;
 
 namespace LawnGardenManagement.Application.Organizations.GetOrganizationById;
 
-public interface IGetOrganizationService
+public interface IGetOrganizationByIdService
 {
     Task<OrganizationResponse?> ExecuteAsync(
         Guid id,

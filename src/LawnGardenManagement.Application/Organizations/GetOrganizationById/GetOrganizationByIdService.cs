@@ -2,9 +2,9 @@ using LawnGardenManagement.Application.Organizations.Common;
 
 namespace LawnGardenManagement.Application.Organizations.GetOrganizationById;
 
-public sealed class GetOrganizationService(
+public sealed class GetOrganizationByIdService(
     IOrganizationRepository organizationRepository)
-    : IGetOrganizationService
+    : IGetOrganizationByIdService
 {
     public async Task<OrganizationResponse?> ExecuteAsync(
         Guid id,
