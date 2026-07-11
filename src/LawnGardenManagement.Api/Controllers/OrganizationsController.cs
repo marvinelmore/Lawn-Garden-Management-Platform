@@ -3,6 +3,7 @@ using LawnGardenManagement.Application.Organizations.CreateOrganization;
 using LawnGardenManagement.Application.Organizations.GetOrganizationById;
 using LawnGardenManagement.Application.Organizations.GetAllOrganizations;
 using LawnGardenManagement.Application.Organizations.UpdateOrganization;
+using LawnGardenManagement.Application.Organizations.DeactivateOrganization;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,8 @@ public sealed class OrganizationsController(
     ICreateOrganizationService createOrganizationService,
     IGetOrganizationByIdService getOrganizationByIdService,
     IGetAllOrganizationsService getAllOrganizationsService,
-    IUpdateOrganizationService updateOrganizationService)
+    IUpdateOrganizationService updateOrganizationService,
+    IDeactivateOrganizationService deactivateOrganizationService)
     : ControllerBase
 {
     [HttpPost]
@@ -93,4 +95,26 @@ public sealed class OrganizationsController(
         return Ok(response);
     }
     
+    [HttpPatch("{id:guid}/deactivate")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeactivateAsync(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        bool success =
+            await deactivateOrganizationService.ExecuteAsync(
+                id,
+                cancellationToken);
+
+        if (!success)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+    
 }
+
+
