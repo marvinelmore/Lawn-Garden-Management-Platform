@@ -1,6 +1,8 @@
+using LawnGardenManagement.Infrastructure.Persistence;
 using LawnGardenManagement.Application.Organizations;
 using LawnGardenManagement.Infrastructure.Organizations;
-using LawnGardenManagement.Infrastructure.Persistence;
+using LawnGardenManagement.Application.Customers;
+using LawnGardenManagement.Infrastructure.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,8 +23,14 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(connectionString));
 
-        services.AddScoped<IOrganizationRepository, OrganizationRepository>();
-
+        services.AddScoped<
+            IOrganizationRepository, 
+            OrganizationRepository>();
+        
+        services.AddScoped<
+            ICustomerRepository,
+            CustomerRepository>();
+        
         return services;
     }
 }

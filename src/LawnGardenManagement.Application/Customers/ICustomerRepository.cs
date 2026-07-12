@@ -1,0 +1,15 @@
+using LawnGardenManagement.Domain.Customers;
+
+namespace LawnGardenManagement.Application.Customers;
+
+public interface ICustomerRepository
+{
+    Task AddAsync(
+        Customer customer,
+        CancellationToken cancellationToken = default);
+
+    Task<bool> EmailExistsAsync(
+        Guid organizationId,
+        string email,
+        CancellationToken cancellationToken = default);
+}
