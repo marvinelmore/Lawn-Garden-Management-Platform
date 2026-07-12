@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Appointments\" />
-    <Folder Include="Customers\" />
     <Folder Include="Employees\" />
     <Folder Include="GardenPlots\" />
     <Folder Include="GardenSites\" />
