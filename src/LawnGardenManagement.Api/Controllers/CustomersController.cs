@@ -1,6 +1,7 @@
 using LawnGardenManagement.Application.Customers.Common;
 using LawnGardenManagement.Application.Customers.CreateCustomer;
 using LawnGardenManagement.Application.Customers.GetCustomerById;
+using LawnGardenManagement.Application.Customers.GetAllCustomersByOrganization;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,8 @@ namespace LawnGardenManagement.Api.Controllers;
 [Route("api/customers")]
 public sealed class CustomersController(
     ICreateCustomerService createCustomerService,
-    IGetCustomerByIdService getCustomerByIdService)
+    IGetCustomerByIdService getCustomerByIdService,
+    IGetAllCustomersByOrganizationService getAllCustomersByOrganizationService)
     : ControllerBase
 {
     [HttpPost]
@@ -50,6 +52,24 @@ public sealed class CustomersController(
         {
             return NotFound();
         }
+
+        return Ok(response);
+    }
+    
+    [HttpGet("/api/organizations/{organizationId:guid}/customers")]
+    [ProducesResponseType(
+        typeof(IReadOnlyList<CustomerResponse>),
+        StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IReadOnlyList<CustomerResponse>>>
+        GetAllByOrganizationAsync(
+            Guid organizationId,
+            CancellationToken cancellationToken)
+    {
+        IReadOnlyList<CustomerResponse> response =
+            await getAllCustomersByOrganizationService.ExecuteAsync(
+                organizationId,
+                cancellationToken);
 
         return Ok(response);
     }

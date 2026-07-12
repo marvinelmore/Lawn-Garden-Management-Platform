@@ -44,4 +44,16 @@ public sealed class CustomerRepository(
                 customer => customer.Id == id,
                 cancellationToken);
     }
+    
+    public async Task<IReadOnlyList<Customer>> GetByOrganizationIdAsync(
+        Guid organizationId,
+        CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Customers
+            .AsNoTracking()
+            .Where(customer => customer.OrganizationId == organizationId)
+            .OrderBy(customer => customer.LastName)
+            .ThenBy(customer => customer.FirstName)
+            .ToListAsync(cancellationToken);
+    }
 }
