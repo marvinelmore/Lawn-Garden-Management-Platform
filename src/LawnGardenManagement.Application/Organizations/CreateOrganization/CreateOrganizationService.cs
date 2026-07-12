@@ -23,7 +23,6 @@ public sealed class CreateOrganizationService(
 
         var organization = new Organization(
             request.Name,
-            request.OrganizationType,
             request.Email,
             request.PhoneNumber);
 
@@ -34,7 +33,6 @@ public sealed class CreateOrganizationService(
         return new OrganizationResponse(
             organization.Id,
             organization.Name,
-            organization.OrganizationType,
             organization.Email,
             organization.PhoneNumber,
             organization.IsActive,

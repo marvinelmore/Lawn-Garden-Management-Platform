@@ -16,7 +16,6 @@ public sealed class GetAllOrganizationsService(
             .Select(organization => new OrganizationResponse(
                 organization.Id,
                 organization.Name,
-                organization.OrganizationType,
                 organization.Email,
                 organization.PhoneNumber,
                 organization.IsActive,

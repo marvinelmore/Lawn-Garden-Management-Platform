@@ -4,6 +4,5 @@ namespace LawnGardenManagement.Application.Organizations.UpdateOrganization;
 
 public sealed record UpdateOrganizationRequest(
     string Name,
-    OrganizationType OrganizationType,
     string? Email,
     string? PhoneNumber);

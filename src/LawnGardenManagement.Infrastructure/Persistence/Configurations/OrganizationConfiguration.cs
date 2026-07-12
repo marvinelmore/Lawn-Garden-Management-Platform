@@ -17,11 +17,6 @@ public sealed class OrganizationConfiguration
             .HasMaxLength(150)
             .IsRequired();
 
-        builder.Property(organization => organization.OrganizationType)
-            .HasConversion<string>()
-            .HasMaxLength(50)
-            .IsRequired();
-
         builder.Property(organization => organization.Email)
             .HasMaxLength(254);
 

@@ -23,7 +23,6 @@ public sealed class UpdateOrganizationService(
 
         organization.UpdateDetails(
             request.Name,
-            request.OrganizationType,
             request.Email,
             request.PhoneNumber);
 
@@ -33,7 +32,6 @@ public sealed class UpdateOrganizationService(
         return new OrganizationResponse(
             organization.Id,
             organization.Name,
-            organization.OrganizationType,
             organization.Email,
             organization.PhoneNumber,
             organization.IsActive,

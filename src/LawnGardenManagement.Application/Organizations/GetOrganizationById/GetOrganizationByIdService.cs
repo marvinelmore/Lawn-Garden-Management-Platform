@@ -22,7 +22,6 @@ public sealed class GetOrganizationByIdService(
         return new OrganizationResponse(
             organization.Id,
             organization.Name,
-            organization.OrganizationType,
             organization.Email,
             organization.PhoneNumber,
             organization.IsActive,

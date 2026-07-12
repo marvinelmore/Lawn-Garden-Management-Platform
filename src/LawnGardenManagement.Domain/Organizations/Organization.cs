@@ -10,22 +10,18 @@ public sealed class Organization : AuditableEntity
 
     public Organization(
         string name,
-        OrganizationType organizationType,
         string? email = null,
         string? phoneNumber = null)
     {
         SetName(name);
 
-        OrganizationType = organizationType;
         Email = NormalizeOptionalValue(email);
         PhoneNumber = NormalizeOptionalValue(phoneNumber);
         IsActive = true;
     }
 
     public string Name { get; private set; } = string.Empty;
-
-    public OrganizationType OrganizationType { get; private set; }
-
+    
     public string? Email { get; private set; }
 
     public string? PhoneNumber { get; private set; }
@@ -34,13 +30,11 @@ public sealed class Organization : AuditableEntity
     
     public void UpdateDetails(
         string name,
-        OrganizationType organizationType,
         string? email,
         string? phoneNumber)
     {
         SetName(name);
 
-        OrganizationType = organizationType;
         Email = NormalizeOptionalValue(email);
         PhoneNumber = NormalizeOptionalValue(phoneNumber);
 

@@ -5,7 +5,6 @@ namespace LawnGardenManagement.Application.Organizations.Common;
 public sealed record OrganizationResponse(
     Guid Id,
     string Name,
-    OrganizationType OrganizationType,
     string? Email,
     string? PhoneNumber,
     bool IsActive,
