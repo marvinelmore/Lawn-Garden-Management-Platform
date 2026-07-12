@@ -12,4 +12,9 @@ public interface ICustomerRepository
         Guid organizationId,
         string email,
         CancellationToken cancellationToken = default);
+    
+    Task<Customer?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default);
 }
+

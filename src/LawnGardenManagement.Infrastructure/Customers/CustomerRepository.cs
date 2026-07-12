@@ -33,4 +33,15 @@ public sealed class CustomerRepository(
                 customer.Email == normalizedEmail,
             cancellationToken);
     }
+    
+    public async Task<Customer?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Customers
+            .AsNoTracking()
+            .SingleOrDefaultAsync(
+                customer => customer.Id == id,
+                cancellationToken);
+    }
 }
