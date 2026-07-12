@@ -3,6 +3,7 @@ using LawnGardenManagement.Application.Customers.CreateCustomer;
 using LawnGardenManagement.Application.Customers.GetCustomerById;
 using LawnGardenManagement.Application.Customers.GetAllCustomersByOrganization;
 using LawnGardenManagement.Application.Customers.UpdateCustomer;
+using LawnGardenManagement.Application.Customers.DeactivateCustomer;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,8 @@ public sealed class CustomersController(
     ICreateCustomerService createCustomerService,
     IGetCustomerByIdService getCustomerByIdService,
     IGetAllCustomersByOrganizationService getAllCustomersByOrganizationService,
-    IUpdateCustomerService updateCustomerService)
+    IUpdateCustomerService updateCustomerService,
+    IDeactivateCustomerService deactivateCustomerService)
     : ControllerBase
 {
     [HttpPost]
@@ -100,5 +102,26 @@ public sealed class CustomersController(
 
         return Ok(response);
     }
+    
+    [HttpPatch("{id:guid}/deactivate")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeactivateAsync(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        bool success =
+            await deactivateCustomerService.ExecuteAsync(
+                id,
+                cancellationToken);
+
+        if (!success)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }
+
 
