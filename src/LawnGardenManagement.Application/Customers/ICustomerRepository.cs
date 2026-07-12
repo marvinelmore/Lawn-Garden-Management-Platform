@@ -20,5 +20,12 @@ public interface ICustomerRepository
     Task<IReadOnlyList<Customer>> GetByOrganizationIdAsync(
         Guid organizationId,
         CancellationToken cancellationToken = default);
+    
+    Task<Customer?> GetTrackedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default);
+
+    Task SaveChangesAsync(
+        CancellationToken cancellationToken = default);
 }
 

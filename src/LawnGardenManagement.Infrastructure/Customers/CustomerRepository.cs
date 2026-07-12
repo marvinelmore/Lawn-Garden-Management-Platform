@@ -56,4 +56,20 @@ public sealed class CustomerRepository(
             .ThenBy(customer => customer.FirstName)
             .ToListAsync(cancellationToken);
     }
+    
+    public async Task<Customer?> GetTrackedByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Customers
+            .SingleOrDefaultAsync(
+                customer => customer.Id == id,
+                cancellationToken);
+    }
+
+    public async Task SaveChangesAsync(
+        CancellationToken cancellationToken = default)
+    {
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

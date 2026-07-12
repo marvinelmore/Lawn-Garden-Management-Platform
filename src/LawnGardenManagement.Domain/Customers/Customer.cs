@@ -45,6 +45,7 @@ public sealed class Customer : AuditableEntity
     public bool IsActive { get; private set; }
 
     public Organization Organization { get; private set; } = null!;
+    
 
     public void UpdateDetails(
         string firstName,

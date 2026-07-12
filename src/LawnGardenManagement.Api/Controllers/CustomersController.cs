@@ -2,6 +2,7 @@ using LawnGardenManagement.Application.Customers.Common;
 using LawnGardenManagement.Application.Customers.CreateCustomer;
 using LawnGardenManagement.Application.Customers.GetCustomerById;
 using LawnGardenManagement.Application.Customers.GetAllCustomersByOrganization;
+using LawnGardenManagement.Application.Customers.UpdateCustomer;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,8 @@ namespace LawnGardenManagement.Api.Controllers;
 public sealed class CustomersController(
     ICreateCustomerService createCustomerService,
     IGetCustomerByIdService getCustomerByIdService,
-    IGetAllCustomersByOrganizationService getAllCustomersByOrganizationService)
+    IGetAllCustomersByOrganizationService getAllCustomersByOrganizationService,
+    IUpdateCustomerService updateCustomerService)
     : ControllerBase
 {
     [HttpPost]
@@ -70,6 +72,31 @@ public sealed class CustomersController(
             await getAllCustomersByOrganizationService.ExecuteAsync(
                 organizationId,
                 cancellationToken);
+
+        return Ok(response);
+    }
+    
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(
+        typeof(CustomerResponse),
+        StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<CustomerResponse>> UpdateAsync(
+        Guid id,
+        [FromBody] UpdateCustomerRequest request,
+        CancellationToken cancellationToken)
+    {
+        CustomerResponse? response =
+            await updateCustomerService.ExecuteAsync(
+                id,
+                request,
+                cancellationToken);
+
+        if (response is null)
+        {
+            return NotFound();
+        }
 
         return Ok(response);
     }
