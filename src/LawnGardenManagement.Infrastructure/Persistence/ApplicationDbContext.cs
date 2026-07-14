@@ -1,5 +1,6 @@
 using LawnGardenManagement.Domain.Organizations;
 using LawnGardenManagement.Domain.Customers;
+using LawnGardenManagement.Domain.Properties;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ public sealed class ApplicationDbContext(
 {
     public DbSet<Organization> Organizations => Set<Organization>();
     public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<Property> Properties => Set<Property>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

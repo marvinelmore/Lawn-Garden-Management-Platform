@@ -6,6 +6,8 @@ using LawnGardenManagement.Infrastructure.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LawnGardenManagement.Application.Properties;
+using LawnGardenManagement.Infrastructure.Properties;
 
 namespace LawnGardenManagement.Infrastructure;
 
@@ -30,6 +32,10 @@ public static class DependencyInjection
         services.AddScoped<
             ICustomerRepository,
             CustomerRepository>();
+        
+        services.AddScoped<
+            IPropertyRepository,
+            PropertyRepository>();
         
         return services;
     }
