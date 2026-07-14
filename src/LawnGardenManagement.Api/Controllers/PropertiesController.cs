@@ -29,19 +29,3 @@ public sealed class PropertiesController(
             response);
     }
 }
-
-curl -X POST http://localhost:5223/api/properties \
--H "Content-Type: application/json" \
--d '{
-"organizationId":"2774850e-4ae2-44bc-8175-2afaa64d7af8",
-"customerId":"ded17e84-23d5-41e5-ab8f-74feae1ac36e",
-"name":"Home",
-"streetAddress":"123 Main Street",
-"city":"Walterboro",
-"state":"SC",
-"postalCode":"29488",
-"lotSizeAcres":0.75,
-"latitude":32.9052,
-"longitude":-80.6668,
-"accessNotes":"Enter through the left-side gate."
-}'
